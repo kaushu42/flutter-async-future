@@ -17,7 +17,8 @@ void main() async {
                 return new Divider();
               }
 
-              final index = position ~/ 2; // dividing position by 2 and returning an integer
+              final index = position ~/
+                  2; // dividing position by 2 and returning an integer
 
               return new ListTile(
                 title: new Text(
@@ -33,9 +34,7 @@ void main() async {
                 subtitle: new Text(
                   _data[index]['body'],
                 ),
-                onTap: () => debugPrint(
-                      "${_data[index]['id']}",
-                    ),
+                onTap: () => onListTap(context, '${_data[index]['title']}'),
               );
             },
             padding: const EdgeInsets.all(10.0),
@@ -50,4 +49,19 @@ Future<List> getJSON() async {
   String url = 'https://jsonplaceholder.typicode.com/posts';
   http.Response response = await http.get(url);
   return jsonDecode(response.body);
+}
+
+void onListTap(BuildContext context, String message) {
+  var alert = new AlertDialog(
+    title: new Text("Info"),
+    content: new Text(message),
+    actions: <Widget>[
+      new FlatButton(
+        child: new Text('Close'),
+        onPressed: () => Navigator.pop(context),
+      ),
+    ],
+  );
+
+  showDialog(context: context, child: alert); 
 }
