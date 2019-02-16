@@ -63,5 +63,12 @@ void onListTap(BuildContext context, String message) {
     ],
   );
 
-  showDialog(context: context, child: alert); 
+  // 'child:' in showDialog is deprecated, so use builder instead
+  // showDialog(context: context, child: alert);
+  showDialog(
+    context: context,
+    builder: (context) {
+      return alert;
+    },
+  );
 }
